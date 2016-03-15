@@ -1,7 +1,9 @@
 #ifndef EXPRESSIONWIDGET_H
 #define EXPRESSIONWIDGET_H
 #include "expression.h"
-#include <c++/bits/unique_ptr.h>
+#include "NodeBag.h"
+#include "NodeGUIBag.h"
+#include <memory>
 #include <QWidget>
 class QGraphicsScene;
 namespace Ui {
@@ -16,14 +18,15 @@ public:
     explicit ExpressionWidget(QWidget *parent = 0);
     ~ExpressionWidget();
 
-    Expression test();
+    std::pair<NodeBag,NodeGuiBag> getTestExpression();
 private:
-    void addNode(QPoint p);
+    void addHello(QPoint p);
 
     Ui::expressionWidget *ui;
     std::unique_ptr<QGraphicsScene> scene;
     std::unique_ptr<NodeHelperInfo> nodeHelper;
-    Expression e;
+    NodeBag nodeBag;
+    NodeGuiBag guiBag;
 };
 
 #endif // EXPRESSIONWIDGET_H

@@ -3,9 +3,9 @@
 
 
 template <typename GraphicsItem>
-class GraphicsSeparator;
+class DefaultGraphicsSeparator;
 class ExpressionItem;
-using DefaultGraphicsSeparator = GraphicsSeparator<ExpressionItem>;
+using GraphicsSeparatorT = DefaultGraphicsSeparator<ExpressionItem>;
 
 #endif // NODEGRAPHICSDECLARATIONS
 

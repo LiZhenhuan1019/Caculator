@@ -4,7 +4,7 @@
 #include "OutputBase.h"
 #include "displayhint.h"
 #include "expressiondepth.h"
-#include "GraphicsSeparator.h"
+#include "DefaultGraphicsSeparator.h"
 namespace NodeHorizontal_impl
 {
     const int leftPadding = 5;

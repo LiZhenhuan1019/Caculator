@@ -1,5 +1,5 @@
 #include "NodeBinary.h"
-#include "GraphicsSeparator.h"
+#include "DefaultGraphicsSeparator.h"
 
 
 

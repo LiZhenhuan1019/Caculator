@@ -2,7 +2,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsSimpleTextItem>
 #include "Node.h"
-#include "ExpressionItem.h"
+#include "QtExpressionItem.h"
 #include "nodehelperinfo.h"
 #include "QtDisplayHint.h"
 #include "HonestExpressionDepth.h"
@@ -12,11 +12,16 @@
 #include <utility>
 
 #include "ui_expressionwidget.h"
-using Item = QGraphicsSimpleTextItem;
+
+
+
+
+
 class expressionCreator
 {
 public:
-    expressionCreator(QGraphicsScene*s,NodeHelperInfo*p):scene(s),pHelper(p)
+    expressionCreator(QGraphicsScene*s,NodeHelperInfo*p,NodeBag&nodebag,NodeGuiBag&guibag)
+        :scene(s),pHelper(p),nodeBag(nodebag),guiBag(guibag)
     {}
 
 
@@ -26,80 +31,71 @@ public:
         ExpressionItem* pThis = new ExpressionItem;
         QtGraphicsSeparator* pG = new QtGraphicsSeparator;
         pG->setItem(pThis);
-        DefaultNodeGeometry* ng = new DefaultNodeGeometry(pHelper,pG);
+        DefaultNodeGeometry* gui = new DefaultNodeGeometry(pHelper,pG);
 
-        T* p =new T(std::forward<ARGS>(args)...,ng);
+        T* p =new T(std::forward<ARGS>(args)...,gui);
+        setID(p,gui);
+        nodeBag.addNode(p);
+        guiBag.addGuiItem(gui);
         return Expression(p);
     }
 
-//    template<typename T,typename ...ARGS>
-//    Expression createMiddle(ARGS&&...args)
-//    {
-//        ExpressionItem* pThis = new ExpressionItem;
-//        QtGraphicsSeparator* pG = new QtGraphicsSeparator;
-//        pG->setItem(pThis);
-
-//        T* p =new T(std::forward<ARGS>(args)...,pHelper,pG);
-
-//        return Expression(p);
-//    }
     template<typename T,typename ...ARGS>
-    Expression createTop(ARGS&&...args)
+    void createTop(ARGS&&...args)
     {
         ExpressionItem* pTop = new ExpressionItem(true);
         QtGraphicsSeparator* pG = new QtGraphicsSeparator;
         pG->setItem(pTop);
-        DefaultNodeGeometry* ng = new DefaultNodeGeometry(pHelper,pG);
+        DefaultNodeGeometry* gui = new DefaultNodeGeometry(pHelper,pG);
 
-        T* p =new T(std::forward<ARGS>(args)...,ng);
-
-
+        T* p =new T(std::forward<ARGS>(args)...,gui);
+        setID(p,gui);
+        nodeBag.setTopExpression(Expression(p));
+        guiBag.addGuiItem(gui);
         scene->addItem(pTop);
-        return Expression(p);
     }
 
-
 private:
-
-    static ExpressionItem* createItem()
+    void setID(NodeBase*node,DefaultNodeGeometry*gui)
     {
-        return new ExpressionItem;
+        node->id=gui->id=idCounter++;
     }
 
     QGraphicsScene*scene = nullptr;
     NodeHelperInfo *pHelper = nullptr;
+    NodeBag& nodeBag;
+    NodeGuiBag& guiBag;
+    int idCounter = 0;
 };
 
-Expression ExpressionWidget::test()
+std::pair<NodeBag,NodeGuiBag> ExpressionWidget::getTestExpression()
 {
-//    Expression ret(new NodeAdd(
-//                                Expression(new NodeAdd(
-//                                                        Expression(new NodeNumber(1,nodeHelper.get())),
-//                                                        Expression(new NodeNumber(2,nodeHelper.get())),
-//                                                        nodeHelper.get())),
-//                                Expression(new NodeNumber(3,nodeHelper.get())),
-//                                nodeHelper.get()));
-    expressionCreator c(scene.get(),nodeHelper.get());
-    return c.createTop<NodeAdd>(c.create<NodeAdd>(c.create<NodeAdd>(c.create<NodeNumber>(20),
+    NodeBag nodeBag;
+    NodeGuiBag guiBag;
+    expressionCreator c(scene.get(),nodeHelper.get(),nodeBag,guiBag);
+    c.createTop<NodeAdd>(c.create<NodeAdd>(c.create<NodeAdd>(c.create<NodeNumber>(20),
                                                                        c.create<NodeNumber>(4)),
                                                     c.create<NodeNumber>(565)),
                                  c.create<NodeNumber>(300));
-
+    return {std::move(nodeBag),std::move(guiBag)};
 }
 
 ExpressionWidget::ExpressionWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::expressionWidget),
     scene(new QGraphicsScene),
-    nodeHelper(new NodeHelperInfo(new QtDisplayHint,new HonestExpressionDepth)),
-    e(test())
+    nodeHelper(new NodeHelperInfo(new QtDisplayHint,new HonestExpressionDepth))
 {
     ui->setupUi(this);
     ui->expressionView->setScene(scene.get());
-    e->updateSize(e->getMinimumSizeFactor(0));
-    e->setCurrentTopLeft(Point(20,20));
+    auto bags=getTestExpression();
+    nodeBag=std::move(bags.first);
+    guiBag=bags.second;
+    NodeBase *top = nodeBag.getTopExpression();
+    top->updateSize(top->getMinimumSizeFactor(0));
+    top->setCurrentTopLeft(Point(20,20));
     scene->update(scene->sceneRect());
-    addNode(QPoint(50,50));
+    addHello(QPoint(50,50));
 }
 
 ExpressionWidget::~ExpressionWidget()
@@ -107,7 +103,8 @@ ExpressionWidget::~ExpressionWidget()
     delete ui;
 }
 
-void ExpressionWidget::addNode(QPoint p)
+using Item = QGraphicsSimpleTextItem;
+void ExpressionWidget::addHello(QPoint p)
 {
     Item *i = new Item;
     i->setPos(p);

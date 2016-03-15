@@ -3,7 +3,8 @@
 #include "caculatorheader.h"
 #include "GraphicsElements.h"
 #include "GraphicsSeparatorDeclarations.h"
-#include "NodeGeometryDeclaration.h"
+#include "NodeGuiDeclaration.h"
+#include "NodeID.h"
 #include <copyable_unique_ptr.h>
 #include <string>
 #include <assert.h>
@@ -33,28 +34,6 @@ public:
     NodeBase& operator=(const NodeBase& other) = delete;
 
     virtual NodeBase* copy() const = 0;
-//#ifdef DEBUG
-//    virtual size_t size() const
-//    {
-//        return 1;
-//    }
-//    std::string nodeidentity() const
-//    {
-//        return nodeName()+size_ttostring(id);
-//    }
-//    virtual std::string nodeName() const
-//    {
-//        return "Node_base";
-//    }
-//    virtual void print(std::ostream& o,size_t line) const
-//    {
-//        assert(line<size());
-//        o<<nodeName();
-//    }
-
-//    size_t id = idcount++;
-//    static size_t idcount;
-//#endif // DEBUG
 
 public:
     virtual void display(OutputBase &o,Point topLeft) const = 0;
@@ -67,19 +46,16 @@ public:
     SizeFactor getFactorOfCurrentSize() const;
     void setFactorOfCurrentSize(SizeFactor s);
     virtual SizeFactor getMinimumSizeFactor(DepthNum) const = 0;
-    //virtual size_t numberOfOperations() const = 0;
-
-
-//    virtual bool isSizeUpdated()const = 0;
 
     virtual void updateSize(SizeFactor sizeFactor);
 
 
-    DefaultGraphicsSeparator *getGraphicsItem() const;
-    void setGraphicsItem(DefaultGraphicsSeparator *value);
+    GraphicsSeparatorT *getGraphicsItem() const;
+    void setGraphicsItem(GraphicsSeparatorT *value);
     NodeHelperInfo *getNodeHelper() const;
     void setNodeHelper(NodeHelperInfo *value);
 
+    NodeID id;
 protected:
     copyable_unique_ptr<DefaultNodeGeometry> geometry;
 

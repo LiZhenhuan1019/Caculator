@@ -1,6 +1,6 @@
 #ifndef NODEFINAL_H
 #define NODEFINAL_H
-#include "NodeGeometry.h"
+#include "NodeGuiItem.h"
 #include "NodeBase.h"
 
 

@@ -1,7 +1,7 @@
 #include "NodeBase.h"
-#include "NodeGeometry.h"
+#include "NodeGuiItem.h"
 #include "OutputBase.h"
-#include "GraphicsSeparator.h"
+#include "DefaultGraphicsSeparator.h"
 
 //#ifdef DEBUG
 //size_t Node_base::idcount = 0;
@@ -38,11 +38,11 @@ void NodeBase::updateSize(SizeFactor /*sizeFactor*/)
     geometry->prepareGeometryChange();
 }
 
-DefaultGraphicsSeparator *NodeBase::getGraphicsItem() const
+GraphicsSeparatorT *NodeBase::getGraphicsItem() const
 {
     return geometry->getGraphicsItem();
 }
-void NodeBase::setGraphicsItem(DefaultGraphicsSeparator *value)
+void NodeBase::setGraphicsItem(GraphicsSeparatorT *value)
 {
     geometry->setGraphicsItem(value);
 }

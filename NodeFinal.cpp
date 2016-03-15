@@ -2,7 +2,7 @@
 #include "OutputBase.h"
 #include "nodehelperinfo.h"
 #include "displayhint.h"
-#include "GraphicsSeparator.h"
+#include "DefaultGraphicsSeparator.h"
 
 
 void NodeFinal::display(OutputBase &o,Point topLeft) const

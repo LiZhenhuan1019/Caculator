@@ -12,7 +12,7 @@ public:
     Expression(Expression const& src)
         :unique_ptr<NodeBase>(src->copy())
     {
-        assert(false);
+        assert(false);//暂时不可用
     }
     Expression(Expression&& src) = default;
     Expression& operator=(Expression const&src) = delete;

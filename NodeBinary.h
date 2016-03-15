@@ -2,7 +2,7 @@
 #define NODEBINARY_H
 #include "NodeBase.h"
 #include "expression.h"
-#include "NodeGeometry.h"
+#include "NodeGuiItem.h"
 
 class DisplayHint;
 class NodeBinary : public NodeBase

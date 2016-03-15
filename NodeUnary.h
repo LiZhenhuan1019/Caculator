@@ -3,7 +3,7 @@
 
 #include "NodeBase.h"
 #include "expression.h"
-#include "NodeGeometry.h"
+#include "NodeGuiItem.h"
 
 class NodeUnary : public NodeBase
 {

@@ -1,17 +1,17 @@
 #include "QtGraphicsSeparator.h"
-#include "ExpressionItem.h"
+#include "QtExpressionItem.h"
 #include "QtGraphicsConvert.h"
 #include "NodeBase.h"
-#include "NodeGeometry.h"
+#include "NodeGuiItem.h"
 
 
-QtGraphicsSeparator::QtGraphicsSeparator(GraphicsSeparator::GraphicsItemT *pItem, DefaultNodeGeometry *pNodegeo)
-    :GraphicsSeparator(pNodegeo),item(pItem)
+QtGraphicsSeparator::QtGraphicsSeparator(GraphicsSeparatorT::GraphicsItemT *pItem, DefaultNodeGeometry *pNodegeo)
+    :GraphicsSeparatorT(pNodegeo),item(pItem)
 {
     item->setseparator(this);
 }
 
-void QtGraphicsSeparator::setParent(DefaultGraphicsSeparator *pParent)
+void QtGraphicsSeparator::setParent(GraphicsSeparatorT *pParent)
 {
     item->setParentItem(pParent->getItem());
 }
@@ -38,7 +38,7 @@ void QtGraphicsSeparator::cancelReferRelationWithNode()
     delete this;
 }
 
-void QtGraphicsSeparator::setItem(GraphicsSeparator::GraphicsItemT *pItem)
+void QtGraphicsSeparator::setItem(GraphicsSeparatorT::GraphicsItemT *pItem)
 {
     delete item;
     item = pItem;

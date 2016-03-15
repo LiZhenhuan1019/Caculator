@@ -32,7 +32,6 @@ SOURCES += mainwindow.cpp \
     expressionwidget.cpp \
     point2d.cpp \
     rect2d.cpp \
-    ExpressionItem.cpp \
     HonestExpressionDepth.cpp \
     QtPaintOutput.cpp \
     NodeBase.cpp \
@@ -43,11 +42,14 @@ SOURCES += mainwindow.cpp \
     NodeSubtract.cpp \
     NodeUnary.cpp \
     NodeBinary.cpp \
-    GraphicsSeparator.cpp \
     QtGraphicsSeparator.cpp \
     copyable_unique_ptr.cpp \
-    NodeGeometry.cpp \
-    OutputBase.cpp
+    OutputBase.cpp \
+    NodeID.cpp \
+    DefaultGraphicsSeparator.cpp \
+    NodeBag.cpp \
+    NodeGuiBag.cpp \
+    QtExpressionItem.cpp
 
 HEADERS  += mainwindow.h \
     consoleOutput.h \
@@ -66,7 +68,6 @@ HEADERS  += mainwindow.h \
     expressionwidget.h \
     point2d.h \
     rect2d.h \
-    ExpressionItem.h \
     HonestExpressionDepth.h \
     QtPaintOutput.h \
     GraphicsElements.h \
@@ -79,14 +80,18 @@ HEADERS  += mainwindow.h \
     NodeSubtract.h \
     NodeUnary.h \
     NodeBinary.h \
-    GraphicsSeparator.h \
     GraphicsSeparatorDeclarations.h \
     QtGraphicsSeparator.h \
     copyable_unique_ptr.h \
-    NodeGeometry.h \
+    NodeGuiItem.h \
     OutputBase.h \
-    NodeGeometryDeclaration.h \
-    NodeBaseDeclaration.h
+    NodeBaseDeclaration.h \
+    NodeID.h \
+    DefaultGraphicsSeparator.h \
+    NodeBag.h \
+    NodeGuiBag.h \
+    NodeGuiDeclaration.h \
+    QtExpressionItem.h
 
 FORMS    += mainwindow.ui \
     expressionwidget.ui

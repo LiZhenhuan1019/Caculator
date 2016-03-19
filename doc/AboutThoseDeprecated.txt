@@ -1,6 +1,9 @@
+以下列出已弃用的一些东西。
+
 1.indentoutputhearder.h:
       这个头文件中的内容是从Node_base.h中抽出，
       用于为控制台中结点的对齐调试输出提供支持的。
+      目前暂停对控制台的支持，故弃用。
 
 2.Expression_old.h:
       这个头文件中有老式的Expression，其中没有用到标准库的unique_ptr

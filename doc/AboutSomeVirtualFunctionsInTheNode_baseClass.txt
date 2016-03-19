@@ -14,23 +14,33 @@ virtual void display(OutputBase &o,Point topLeft) const = 0;
     用于显示结点。
     子类可能实现：NodeHorizontal，它会只显示自身的符号，通过notation()获得。
 
-virtual SizeFactor getSizeFactor(DepthNum) const = 0;
+virtual SizeFactor getMinimumSizeFactor(DepthNum) const = 0;
     DepthNum: 目前是int的别名，表示当前结点在整个表达式树中的深度。
-    这个函数作用是获得结点的大小因子。
-    子类可能实现：对于NodeHorizontal，它可能会调用左右子结点的getSizeFactor函数，
+    这个函数作用是获得结点的“最小”尺寸因子（考虑到结点的子结点尺寸因子不能太小）
+    这个函数与 NodeBase::updateSize 结合可实现子结点比父结点小且大小合适。
+    子类可能实现：对于NodeHorizontal，它可能会调用左右子结点的getMinimumSizeFactor函数，
                并返回二者返回值中较大者。
                对于Node_Number，它会查询对于数字允许的最小大小因子并返回它。
 
 
-Size sizeHint(SizeFactor sizeFactor) const;
-    虽然这不是虚函数，但它调用虚函数updateSizeHint。
-    Node_base中缓存了当前结点的“大小”。
+virtual void updateSize(SizeFactor sizeFactor);
+    根据sizeFactor更新尺寸。
+    子类可能实现：对于NodeHorizontal，它会根据合适的SizeFactor调用左右子结点的updateSize函数，
+                并做其它的一些调整，代码：
 
-virtual bool isSizeUpdated()const = 0;
-    子类可能实现：NodeHorizontal：递归调用两子结点。
-                NodeNumber: 根据其存储的数字是否改变
-virtual void updateSizeHint() const = 0;
-    子类可能实现：对于NodeHorizontal,它可能会以相同大小因子调用左右子结点
-               的updateSizeHint函数，并计算得到自己的大小，将其保存到自己的缓存中。
-    updateSizeHint与getSizeFactor一起保证了同深度结点会以相同大小因子被显示
-        并且保证深处结点的大小因子不致过小以致用户看不清楚。
+void NodeHorizontal::updateSize(SizeFactor newSizeFactor)
+{
+    using namespace NodeHorizontal_impl;
+    NodeBase::updateSize(newSizeFactor);
+
+    SizeFactor newChildSizeFactor = computSizeFactorOfChildNode(newSizeFactor);
+    left->updateSize(newChildSizeFactor);
+    right->updateSize(newChildSizeFactor);
+    if(getFactorOfCurrentSize() != newSizeFactor)
+    {
+        updateMyNotationSize(newSizeFactor);
+    }
+    updateMySize();
+    updateChildAndNotaionPosition();
+}
+

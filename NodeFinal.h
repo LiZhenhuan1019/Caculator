@@ -19,9 +19,7 @@ public:
 
     virtual void display(OutputBase &o,Point topLeft) const override;
 protected:
-//    virtual bool isSizeUpdated() const override;
     virtual void updateSize(SizeFactor sizeFactor) override;
-//    mutable bool mIsSizeUpdated = false;
 
 };
 

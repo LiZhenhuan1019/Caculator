@@ -40,12 +40,11 @@ public:
 
     Point getCurrentTopLeft() const;//相对父节点左上角位置，即父节点左上角为(0,0)
     void setCurrentTopLeft(const Point &value,Size const&parentSize = Size(0,0));
-    Size getCurrentSize() const;
-    void setCurrentSize(Size newSize);
     SizeFactor getFactorOfCurrentSize() const;
     void setFactorOfCurrentSize(SizeFactor s);
     virtual SizeFactor getMinimumSizeFactor(DepthNum) const = 0;
 
+    Size getCurrentSize() const;
     virtual void updateSize(SizeFactor sizeFactor);
 
 
@@ -55,6 +54,7 @@ public:
     void setNodeHelper(NodeHelperInfo *value);
 
 protected:
+    void setCurrentSize(Size newSize);
     copyable_unique_ptr<DefaultNodeGeometry> geometry;
 
 };

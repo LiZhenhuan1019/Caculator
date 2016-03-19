@@ -45,10 +45,6 @@ public:
     SizeFactor getFactorOfCurrentSize() const;
     void setFactorOfCurrentSize(SizeFactor s);
     virtual SizeFactor getMinimumSizeFactor(DepthNum) const = 0;
-    //virtual size_t numberOfOperations() const = 0;
-
-
-//    virtual bool isSizeUpdated()const = 0;
 
     virtual void updateSize(SizeFactor sizeFactor);
 

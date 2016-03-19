@@ -97,4 +97,5 @@ FORMS    += mainwindow.ui \
 DISTFILES += \
     doc/about some virtual functions in the Node_base class \
     doc/AboutSomeVirtualFunctionsInTheNode_baseClass.txt \
-    doc/AboutThoseDeprecated.txt
+    doc/AboutThoseDeprecated.txt \
+    自主招生办老师请看这里.txt

@@ -13,7 +13,10 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Caculator
 TEMPLATE = app
 
-include(..\..\my-include.pro)
+CONFIG += c++14
+CONFIG += Wall
+CONFIG += Weffc++
+
 
 
 SOURCES += mainwindow.cpp \

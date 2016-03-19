@@ -81,28 +81,9 @@ ExpressionWidget::ExpressionWidget(QWidget *parent) :
     e->updateSize(e->getMinimumSizeFactor(0));
     e->setCurrentTopLeft(Point(20,20));
     scene->update(scene->sceneRect());
-    addNode(QPoint(50,50));
 }
 
 ExpressionWidget::~ExpressionWidget()
 {
     delete ui;
-}
-
-void ExpressionWidget::addNode(QPoint p)
-{
-    Item *i = new Item;
-    i->setPos(p);
-    i->setText("hello  \n  hello");
-    i->setFlags(QGraphicsItem::ItemIsMovable
-                |QGraphicsItem::ItemIsSelectable);
-    scene->addItem(i);
-    i = new Item(i);
-
-    i->setPos(10,0);
-    i->setText("hello");
-    i->setFlags(/*QGraphicsItem::ItemIsMovable
-                |*/QGraphicsItem::ItemIsSelectable);
-
-
 }

@@ -11,7 +11,7 @@ class NodeFinal : public NodeBase
 public:
     //------special members
     NodeFinal() = default;
-    NodeFinal(DefaultNodeGeometry *geo):NodeBase(geo)
+    NodeFinal(NodeGuiBag *gui, NodeID id):NodeBase(gui,id)
     {}
     virtual ~NodeFinal() = default;
     NodeFinal(const NodeFinal& other) = default;

@@ -32,11 +32,11 @@ public:
         QtGraphicsSeparator* pG = new QtGraphicsSeparator;
         pG->setItem(pThis);
         DefaultNodeGeometry* gui = new DefaultNodeGeometry(pHelper,pG);
-
-        T* p =new T(std::forward<ARGS>(args)...,gui);
-        setID(p,gui);
-        nodeBag.addNode(p);
+        NodeID id=newID();
+        gui->id=id;
         guiBag.addGuiItem(gui);
+        T* p =new T(std::forward<ARGS>(args)...,&guiBag,id);
+        nodeBag.addNode(p);
         return Expression(p);
     }
 
@@ -47,18 +47,22 @@ public:
         QtGraphicsSeparator* pG = new QtGraphicsSeparator;
         pG->setItem(pTop);
         DefaultNodeGeometry* gui = new DefaultNodeGeometry(pHelper,pG);
-
-        T* p =new T(std::forward<ARGS>(args)...,gui);
-        setID(p,gui);
+        NodeID id=newID();
+        gui->id=id;
+        T* p =new T(std::forward<ARGS>(args)...,&guiBag,id);
         nodeBag.setTopExpression(Expression(p));
         guiBag.addGuiItem(gui);
         scene->addItem(pTop);
     }
 
 private:
-    void setID(NodeBase*node,DefaultNodeGeometry*gui)
+    void initializeNode(NodeBase*node,DefaultNodeGeometry*gui)
     {
-        node->id=gui->id=idCounter++;
+        node->id=gui->id=newID();
+    }
+    NodeID newID()
+    {
+        return NodeID(idCounter++);
     }
 
     QGraphicsScene*scene = nullptr;
@@ -68,16 +72,13 @@ private:
     int idCounter = 0;
 };
 
-std::pair<NodeBag,NodeGuiBag> ExpressionWidget::getTestExpression()
+void ExpressionWidget::getTestExpression()
 {
-    NodeBag nodeBag;
-    NodeGuiBag guiBag;
     expressionCreator c(scene.get(),nodeHelper.get(),nodeBag,guiBag);
     c.createTop<NodeAdd>(c.create<NodeAdd>(c.create<NodeAdd>(c.create<NodeNumber>(20),
                                                                        c.create<NodeNumber>(4)),
                                                     c.create<NodeNumber>(565)),
                                  c.create<NodeNumber>(300));
-    return {std::move(nodeBag),std::move(guiBag)};
 }
 
 ExpressionWidget::ExpressionWidget(QWidget *parent) :
@@ -88,9 +89,7 @@ ExpressionWidget::ExpressionWidget(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->expressionView->setScene(scene.get());
-    auto bags=getTestExpression();
-    nodeBag=std::move(bags.first);
-    guiBag=bags.second;
+    getTestExpression();
     NodeBase *top = nodeBag.getTopExpression();
     top->updateSize(top->getMinimumSizeFactor(0));
     top->setCurrentTopLeft(Point(20,20));

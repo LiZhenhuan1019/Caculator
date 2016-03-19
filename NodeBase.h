@@ -5,6 +5,7 @@
 #include "GraphicsSeparatorDeclarations.h"
 #include "NodeGuiDeclaration.h"
 #include "NodeID.h"
+#include "NodeGuiBag.h"
 #include <copyable_unique_ptr.h>
 #include <string>
 #include <assert.h>
@@ -28,7 +29,7 @@ public:
     friend class OperatorTable;
 
     NodeBase() = default;
-    NodeBase(DefaultNodeGeometry *geo);
+    NodeBase(NodeGuiBag *gui, NodeID i);
 
     virtual ~NodeBase();
     NodeBase& operator=(const NodeBase& other) = delete;
@@ -56,8 +57,19 @@ public:
     void setNodeHelper(NodeHelperInfo *value);
 
     NodeID id;
+    void setGuiBag(NodeGuiBag*gui)
+    {
+        guiBag=gui;
+        getGuiItem()->setNode(this);
+    }
+    DefaultNodeGeometry* getGuiItem()const
+    {
+        return guiBag->getGuiItem(id);
+    }
+
 protected:
-    copyable_unique_ptr<DefaultNodeGeometry> geometry;
+    NodeGuiBag *guiBag=nullptr;
+    copyable_unique_ptr<DefaultNodeGeometry> gui;
 
 };
 

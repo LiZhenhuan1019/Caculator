@@ -12,7 +12,7 @@ public:
     virtual ~NodeNumber() = default;
     NodeNumber(NodeNumber const&) = default;
 
-    NodeNumber(long long n,DefaultNodeGeometry *geo):NodeFinal(geo),num(n)
+    NodeNumber(long long n,NodeGuiBag *gui, NodeID id):NodeFinal(gui,id),num(n)
     {}
     virtual NodeBase* copy() const override
     {

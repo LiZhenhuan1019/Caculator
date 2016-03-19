@@ -4,8 +4,8 @@
 
 
 
-NodeBinary::NodeBinary(Expression &&el, Expression &&er, DefaultNodeGeometry *geo)
-    :NodeBase(geo),left(std::move(el)),right(std::move(er))
+NodeBinary::NodeBinary(Expression &&el, Expression &&er, NodeGuiBag *gui, NodeID id)
+    :NodeBase(gui,id),left(std::move(el)),right(std::move(er))
 {
     updateLeftChildGraphicsItemParentRelation();
     updateRightChildGraphicsItemParentRelation();

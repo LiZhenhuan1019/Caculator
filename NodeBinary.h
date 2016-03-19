@@ -16,9 +16,9 @@ public:
     virtual ~NodeBinary() = default;
     NodeBinary(const NodeBinary& other) = default;
     //---------------------------------------------
-    NodeBinary(Expression&& el,Expression&& er,DefaultNodeGeometry *geo);
-    NodeBinary(NodeBase* pl,NodeBase* pr,DefaultNodeGeometry *geo)
-      :NodeBinary(Expression(pl),Expression(pr),geo)
+    NodeBinary(Expression&& el, Expression&& er, NodeGuiBag *gui, NodeID id);
+    NodeBinary(NodeBase* pl,NodeBase* pr,NodeGuiBag *gui, NodeID id)
+      :NodeBinary(Expression(pl),Expression(pr),gui,id)
     {}
 
     Expression const& getLeft() const;

@@ -16,12 +16,12 @@ public:
     virtual ~NodeHorizontal() = default;
     NodeHorizontal(const NodeHorizontal& other) = default;
     //---------------------------------------------
-    NodeHorizontal(Expression&& el,Expression&& er,DefaultNodeGeometry *geo)
-        :NodeBinary(std::move(el),std::move(er),geo)
+    NodeHorizontal(Expression&& el,Expression&& er,NodeGuiBag *gui, NodeID id)
+        :NodeBinary(std::move(el),std::move(er),gui,id)
     {}
 
-    NodeHorizontal(NodeBase* pl,NodeBase* pr,DefaultNodeGeometry *geo)
-      :NodeHorizontal(Expression(pl),Expression(pr),geo)
+    NodeHorizontal(NodeBase* pl,NodeBase* pr,NodeGuiBag *gui, NodeID id)
+      :NodeHorizontal(Expression(pl),Expression(pr),gui,id)
     {}
 //#ifdef DEBUG
 //    virtual size_t size() const override

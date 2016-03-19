@@ -18,7 +18,7 @@ public:
     explicit ExpressionWidget(QWidget *parent = 0);
     ~ExpressionWidget();
 
-    std::pair<NodeBag,NodeGuiBag> getTestExpression();
+    void getTestExpression();
 private:
     void addHello(QPoint p);
 

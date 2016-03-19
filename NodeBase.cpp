@@ -15,66 +15,67 @@ Size NodeBase::getCurrentSize() const
 //        currentFactor = sizeFactor;
 //        updateSizeHint();
 //    }
-    return geometry->getCurrentSize();
+    return getGuiItem()->getCurrentSize();
 }
 
 void NodeBase::setCurrentSize(Size newSize)
 {
-    geometry->setCurrentSize(newSize);
+    getGuiItem()->setCurrentSize(newSize);
 }
 
 SizeFactor NodeBase::getFactorOfCurrentSize() const
 {
-    return geometry->getFactorOfCurrentSize();
+    return getGuiItem()->getFactorOfCurrentSize();
 }
 
 void NodeBase::setFactorOfCurrentSize(SizeFactor s)
 {
-    geometry->setFactorOfCurrentSize(s);
+    getGuiItem()->setFactorOfCurrentSize(s);
 }
 
 void NodeBase::updateSize(SizeFactor /*sizeFactor*/)
 {
-    geometry->prepareGeometryChange();
+    getGuiItem()->prepareGeometryChange();
 }
 
 GraphicsSeparatorT *NodeBase::getGraphicsItem() const
 {
-    return geometry->getGraphicsItem();
+    return getGuiItem()->getGraphicsItem();
 }
 void NodeBase::setGraphicsItem(GraphicsSeparatorT *value)
 {
-    geometry->setGraphicsItem(value);
+    getGuiItem()->setGraphicsItem(value);
 }
 
 NodeHelperInfo *NodeBase::getNodeHelper() const
 {
-    return geometry->getNodeHelper();
+    return getGuiItem()->getNodeHelper();
 }
 
 void NodeBase::setNodeHelper(NodeHelperInfo *value)
 {
-    setNodeHelper(value);
+    getGuiItem()->setNodeHelper(value);
 }
 
 
-NodeBase::NodeBase(DefaultNodeGeometry *geo):geometry(geo)
+NodeBase::NodeBase(NodeGuiBag *gui, NodeID i)
+    :id(i)
 {
-    geo->setNode(this);
+    setGuiBag(gui);
 }
 
 NodeBase::~NodeBase()
 {
-    geometry->cancelReferRelationWithNode();
+    getGuiItem()->cancelReferRelationWithNode();
 }
 
 
 Point NodeBase::getCurrentTopLeft() const
 {
-    return geometry->getCurrentTopLeft();
+    return getGuiItem()->getCurrentTopLeft();
 }
 void NodeBase::setCurrentTopLeft(const Point &value, const Size &parentSize)
 {
-    geometry->setCurrentTopLeft(value,parentSize);
+    getGuiItem()->setCurrentTopLeft(value,parentSize);
 }
 

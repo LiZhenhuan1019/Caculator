@@ -20,12 +20,6 @@ public:
     {
         return new NodeSubtract(*this);
     }
-//#ifdef DEBUG
-//    virtual std::string nodeName() const override
-//    {
-//        return "NodeSubtract";
-//    }
-//#endif // DEBUG
 
     virtual std::string notation() const override
     {

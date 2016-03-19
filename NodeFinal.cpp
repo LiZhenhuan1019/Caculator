@@ -11,10 +11,6 @@ void NodeFinal::display(OutputBase &o,Point topLeft) const
     o.put(notation(),Rect(topLeft,getCurrentSize()),f);
 }
 
-//bool NodeFinal::isSizeUpdated() const
-//{
-//    return mIsSizeUpdated;
-//}
 
 void NodeFinal::updateSize(SizeFactor sizeFactor)
 {

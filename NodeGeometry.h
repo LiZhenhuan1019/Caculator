@@ -19,7 +19,6 @@ public:
         getGraphicsItem()->setNodeGeomerty(this);
     }
 
-//    Point getCurrentTopLeftPoint() const;//for no one
 
     //for node
     GraphicsType *getGraphicsItem() const

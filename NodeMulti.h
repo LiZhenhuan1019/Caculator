@@ -19,13 +19,6 @@ public:
     {
         return new NodeMulti(*this);
     }
-//#ifdef DEBUG
-//    virtual std::string nodeName() const override
-//    {
-//        return "NodeMulti";
-//    }
-//#endif // DEBUG
-
     virtual std::string notation() const override
     {
         return "*";

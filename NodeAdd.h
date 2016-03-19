@@ -19,12 +19,6 @@ public:
     {
         return new NodeAdd(*this);
     }
-//#ifdef DEBUG
-//    virtual std::string nodeName() const override
-//    {
-//        return "NodeAdd";
-//    }
-//#endif // DEBUG
 
 
     virtual std::string notation() const override

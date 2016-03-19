@@ -33,28 +33,6 @@ namespace NodeHorizontal_impl
         return myNotationPos+Point(notationSize.width()+middlePadding,0);
     }
 
-//    Size computeSize(Size const&left,Size const&middle,Size const& right)
-//    {
-//        Size ret;
-//        ret.width()=leftPadding
-//                    +left.width()
-//                    +middlePadding
-//                    +middle.width()
-//                    +middlePadding
-//                    +right.width()
-//                    +rightPadding;
-//        ret.height() =topPadding
-//                      +std::max
-//                       (
-//                           std::max
-//                           (
-//                               left.height(),middle.height()
-//                           ),
-//                           right.height()
-//                       )
-//                      +bottomPadding;
-//        return ret;
-//    }
 }
 
 
@@ -66,12 +44,6 @@ void NodeHorizontal::display(OutputBase &o,Point topLeft) const
           getFactorOfCurrentSize()
           );
 }
-
-//bool NodeHorizontal::isSizeUpdated() const
-//{
-//    return left->isSizeUpdated()&&right->isSizeUpdated();
-//}
-
 
 void NodeHorizontal::updateLeftPos()
 {

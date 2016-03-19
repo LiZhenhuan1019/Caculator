@@ -21,12 +21,6 @@ public:
         return new NodeDivide(*this);
     }
 
-//#ifdef DEBUG
-//    virtual std::string nodeName() const override
-//    {
-//        return "NodeDivide";
-//    }
-//#endif // DEBUG
 
     virtual std::string notation() const override
     {

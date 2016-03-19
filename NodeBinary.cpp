@@ -1,9 +1,6 @@
 #include "NodeBinary.h"
 #include "GraphicsSeparator.h"
 
-
-
-
 NodeBinary::NodeBinary(Expression &&el, Expression &&er, DefaultNodeGeometry *geo)
     :NodeBase(geo),left(std::move(el)),right(std::move(er))
 {

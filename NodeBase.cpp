@@ -3,18 +3,10 @@
 #include "OutputBase.h"
 #include "GraphicsSeparator.h"
 
-//#ifdef DEBUG
-//size_t Node_base::idcount = 0;
-//#endif // DEBUG
 
 
 Size NodeBase::getCurrentSize() const
 {
-//    if(sizeFactor!=currentFactor||!isSizeUpdated())
-//    {
-//        currentFactor = sizeFactor;
-//        updateSizeHint();
-//    }
     return geometry->getCurrentSize();
 }
 

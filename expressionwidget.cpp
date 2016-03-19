@@ -32,17 +32,6 @@ public:
         return Expression(p);
     }
 
-//    template<typename T,typename ...ARGS>
-//    Expression createMiddle(ARGS&&...args)
-//    {
-//        ExpressionItem* pThis = new ExpressionItem;
-//        QtGraphicsSeparator* pG = new QtGraphicsSeparator;
-//        pG->setItem(pThis);
-
-//        T* p =new T(std::forward<ARGS>(args)...,pHelper,pG);
-
-//        return Expression(p);
-//    }
     template<typename T,typename ...ARGS>
     Expression createTop(ARGS&&...args)
     {
@@ -72,13 +61,6 @@ private:
 
 Expression ExpressionWidget::test()
 {
-//    Expression ret(new NodeAdd(
-//                                Expression(new NodeAdd(
-//                                                        Expression(new NodeNumber(1,nodeHelper.get())),
-//                                                        Expression(new NodeNumber(2,nodeHelper.get())),
-//                                                        nodeHelper.get())),
-//                                Expression(new NodeNumber(3,nodeHelper.get())),
-//                                nodeHelper.get()));
     expressionCreator c(scene.get(),nodeHelper.get());
     return c.createTop<NodeAdd>(c.create<NodeAdd>(c.create<NodeAdd>(c.create<NodeNumber>(20),
                                                                        c.create<NodeNumber>(4)),

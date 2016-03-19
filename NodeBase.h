@@ -33,28 +33,6 @@ public:
     NodeBase& operator=(const NodeBase& other) = delete;
 
     virtual NodeBase* copy() const = 0;
-//#ifdef DEBUG
-//    virtual size_t size() const
-//    {
-//        return 1;
-//    }
-//    std::string nodeidentity() const
-//    {
-//        return nodeName()+size_ttostring(id);
-//    }
-//    virtual std::string nodeName() const
-//    {
-//        return "Node_base";
-//    }
-//    virtual void print(std::ostream& o,size_t line) const
-//    {
-//        assert(line<size());
-//        o<<nodeName();
-//    }
-
-//    size_t id = idcount++;
-//    static size_t idcount;
-//#endif // DEBUG
 
 public:
     virtual void display(OutputBase &o,Point topLeft) const = 0;
